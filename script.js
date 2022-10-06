@@ -1,4 +1,4 @@
-let pokemonList =
+let myVariable = 'pokemonList';
 [
   {
     "name": "Jigglypuff",
@@ -28,3 +28,4 @@ let pokemonList =
           "water"]
   }
 ];
+console.log(typeof myVariable);
