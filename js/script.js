@@ -23,12 +23,12 @@ let mypokemonList = [
 
 for (let i=0; i < mypokemonList.length; i++){ 
  if (mypokemonList[i].height <0.8 && mypokemonList[i].height >0.2){
-     document.write(mypokemonList[i].name + "is" + mypokemonList[i].height + " That is average<br>")
- }else if (mypokemonList[i].height >0.2){
-     document.write(mypokemonList[i].name + " That is average<br>");
+     document.write(mypokemonList[i].name + " is " + mypokemonList[i].height + "m" + " That is average.<br>")
  }else {
-     document.write(mypokemonList[i].name + " Wow, That is big!<br>");
+     document.write(mypokemonList[i].name + " is " + mypokemonList[i].height + "m" + " Wow, That is big!<br>");
   }
+}; 
+
 // Comments
 // Part 1: 
 // Line 24: The initialization is let i=0. The conditional is i < mypokemonList.length. The action is i++.
