@@ -33,5 +33,3 @@ for (let i=0; i < mypokemonList.length; i++){
 // Part 1: 
 // Line 24: The initialization is let i=0. The conditional is i < mypokemonList.length. The action is i++.
 // Line 24-31: Create a for loop that iterates over each item in pokemonList
-// Part 2:
-// // Unable to see project in index.html file. 
