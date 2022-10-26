@@ -1,6 +1,3 @@
-// Create a new pokemonRepository variable to hold what your IIFE will return and assign IIFE to the variable  - Line 2
-let pokemonRepository = (function () {
-
 let pokemonList = [
    {
      "name": "Jigglypuff",
@@ -24,7 +21,7 @@ let pokemonList = [
 // Arrays:[]
 // Objects: {}
 
-// Line 28-34: Create a for loop that iterates over each item in pokemonList
+// Line 26-32: Create a for loop that iterates over each item in pokemonList
 // The initialization is let i=0. The conditional is i < mypokemonList.length. The action is i++.
 // for (let i=0; i < pokemonList.length; i++){ 
 //  if (pokemonList[i].height <0.8 && pokemonList[i].height >0.2){
@@ -34,7 +31,10 @@ let pokemonList = [
 //   }
 // }; 
 
-// Wrap pokemonList array in an IIFE - starts on line 2 then continues on 42-54
+// IIFE - Immediately Invoked Function Expression  
+// Create a new pokemonRepository variable to hold what your IIFE will return and assign IIFE to the variable
+// Wrap pokemonList array in an IIFE. IIFE wraps around the function - let pokemonRepository = (
+let pokemonRepository = (function () {
 function getAll () {
     return pokemonList;
 }
@@ -47,12 +47,10 @@ return {
     add: add
 };
 
-}}()
-document.write(pokemonRepository.getAll)())
+})()
 
 // Using forEach() loops:
-// **Note - Moved forEach loop per task comment "Outside of and below the IIFE, you should already have a forEach() loop that iterates over each Pokémon in the repositor" (line 58-60).
-// The forEach loop worked and showed up on index.html before the pokemonRepository was added.
+// Shows forEach loop outside of and below the IIFE. The forEach() loop iterates over each Pokémon in the repositor.
 pokemonList.forEach(function(pokemon) {
-    document.write(pokemon.name + " is " + pokemon.height + "m");
+    document.write(pokemon.name + " is " + pokemon.height + "m ");
    });
