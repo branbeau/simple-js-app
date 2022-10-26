@@ -52,5 +52,5 @@ return {
 // Using forEach() loops:
 // Shows forEach loop outside of and below the IIFE. The forEach() loop iterates over each Pokémon in the repositor.
 pokemonList.forEach(function(pokemon) {
-    document.write(pokemon.name + " is " + pokemon.height + "m ");
+    document.write(pokemon.name + " is " + pokemon.height + " m.<br>");
    });
