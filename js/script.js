@@ -32,10 +32,8 @@ let pokemonList = [
 // }; 
 
 // IIFE - Immediately Invoked Function Expression  
-// Create a new pokemonRepository variable to hold what your IIFE will return and assign IIFE to the variable
-// Wrap pokemonList array in an IIFE. IIFE wraps around the function - let pokemonRepository = (
-let pokemonRepository = (function() {
-    let pokemonList = []; //Added pokemonList variable inside pokemonRepository IIFE
+let pokemonRepository = (function() { // Create a new pokemonRepository variable to hold what your IIFE will return and assign IIFE to the variable
+    let pokemonList = []; // Added pokemonList variable inside pokemonRepository IIFE (Wrap pokemonList array in an IIFE). IIFE wraps around the function - let pokemonRepository = (.
 
     function getAll() {
         return pokemonList;
