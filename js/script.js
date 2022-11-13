@@ -16,21 +16,21 @@
 let pokemonRepository = (function () { // New pokemonRepository variable that holds what the IIFE will return and assign IIFE to the variable
     // let pokemonList =  [//) PokemonList variable inside pokemonRepository IIFE (Wrap pokemonList array in an IIFE). IIFE wraps around the function - let pokemonRepository = (.
     //                     // Moved pokemonList from outside of repository. The list previously started on line 1.
-    let repository = [
+  let repository = [
     {
-            "name": "Jigglypuff",
-            "height": 0.5,
-            "type": ["normal", "fairy"]
-        },
-        {
-            "name": "Butterfree",
-            "height": 1.1,
-            "type": ["bug", "flying"]
-        },
-        {
-            "name": "Lilipup",
-            "height": 0.4,
-            "type": ["normal"]
+      "name": "Jigglypuff",
+      "height": 0.5,
+      "type": ["normal", "fairy"]
+    },
+      {  
+       "name": "Butterfree",
+       "height": 1.1,
+       "type": ["bug", "flying"]
+    },  
+       {
+        "name": "Lilipup",
+        "height": 0.4,
+        "type": ["normal"]
         },
     ];
 
@@ -39,11 +39,11 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     // }
 
     function add(pokemon) {
-        if (
-            typeof pokemon === "object" &&
-            "name" in pokemon &&
-            "height" in pokemon &&
-            "types" in pokemon
+      if (
+        typeof pokemon === "object" &&
+        "name" in pokemon &&
+        "height" in pokemon &&
+        "types" in pokemon
         ) {
             repository.push(pokemon);
         } else {
@@ -52,30 +52,29 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     }
 
     function getAll() {
-        return repository;
+      return repository;
         // function getAll() {
         //    return pokemonList;
     }
 
     function addListItem(pokemon) {
-        // Lines 43-50 was cut from line 67-73 and indented so code is inside the function 
-        let pokemonList =
-            document.querySelector(".pokemon-list"); // Created pokemonList variable. Selected the class that was just created in the index.html file - .pokemon-list. Be sure to add dot in front of class name.
-        let listpokemon = document.createElement("li"); // Have you UL and inside the UL an element was created for the li. 
-        let button = document.createElement("button"); // Inside each li, a button will be created. 
-        button.innerText = pokemon.name;
-        button.classList.add("button-class"); // This styles the button based on the css file. 
-        listpokemon.appendChild(button); // Call list on line 57 to append child and this appends the button
-        pokemonList.appendChild(listpokemon); // Append listpokemon from line 58 
-        button.addEventListener("click", function(event) {
-            showDetails(pokemon);
+    // Lines 43-50 was cut from line 67-73 and indented so code is inside the function 
+      let pokemonList = document.querySelector(".pokemon-list"); // Created pokemonList variable. Selected the class that was just created in the index.html file - .pokemon-list. Be sure to add dot in front of class name.
+      let listpokemon = document.createElement("li"); // Have you UL and inside the UL an element was created for the li. 
+      let button = document.createElement("button"); // Inside each li, a button will be created. 
+      button.innerText = pokemon.name;
+      button.classList.add("button-class"); // This styles the button based on the css file. 
+      listpokemon.appendChild(button); // Call list on line 57 to append child and this appends the button
+      pokemonList.appendChild(listpokemon); // Append listpokemon from line 58 
+      button.addEventListener("click", function(event) {
+        showDetails(pokemon);
  });
 
     }
     return {
-        add: add,
-        getAll: getAll,
-        addListItem: addListItem // Calling the addListItem from line 42 under return
+      add: add,
+      getAll: getAll,
+      addListItem: addListItem // Calling the addListItem from line 42 under return
     };
 
 })();
