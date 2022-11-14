@@ -68,8 +68,12 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
       pokemonList.appendChild(listpokemon); // Append listpokemon from line 58 
       button.addEventListener("click", function(event) {
         showDetails(pokemon);
- });
+      });
 
+    }
+    
+    function showDetails(item) {
+    
     }
     return {
       add: add,
