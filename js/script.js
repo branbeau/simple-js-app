@@ -1,6 +1,6 @@
 let pokemonRepository = (function () { // New pokemonRepository variable that holds what the IIFE will return and assign IIFE to the variable
   let pokemonList = []; // Arrays:[]
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=20';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
     function add(pokemon) { // Objects: {}
       if (
