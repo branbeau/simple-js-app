@@ -1,6 +1,6 @@
 let pokemonRepository = (function () { // New pokemonRepository variable that holds what the IIFE will return and assign IIFE to the variable
   let pokemonList = []; // Arrays:[]
-  // let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
   let modalContainer = document.querySelector('#modal-container');
 
   function showModal(title, text, img) {
@@ -80,6 +80,37 @@ modalContainer.classList.contains('is-visible')) {
     });
   }
 
+   function loadList() {
+      return fetch(apiUrl).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+        console.log(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
+  }
+  
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
   function showDetails(item) {
     showModal(item.name, item.height, item.image);
 
@@ -89,6 +120,10 @@ modalContainer.classList.contains('is-visible')) {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails,
+    
   };
 
 })();
@@ -98,5 +133,7 @@ pokemonRepository.add({ name: 'Butterfree', height: 1.1, type: ["bug", "flying"]
 pokemonRepository.add({ name: 'Lilipup', height: 0.4, type: ["normal"], image: "img/Lilipup.png" });
 
 pokemonRepository.getAll().forEach(function(item) {
+  pokemonRepository.loadList().then(function () {;
   pokemonRepository.addListItem(item);
-})
+  });
+});
