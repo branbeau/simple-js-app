@@ -2,32 +2,6 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
   let pokemonList = []; // Arrays:[]
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
-    function add(pokemon) { // Objects: {}
-      if (
-        typeof pokemon === "object" && // Strings: ""
-        "name" in pokemon 
-      ) {
-        pokemonList.push(pokemon);
-    } else {
-      console.log("pokemon is not correct");
-    }
-  }
-    function getAll() {
-      return pokemonList;   
-    }
-    function addListItem(pokemon) {
-      let pokemonList = document.querySelector(".pokemon-list"); 
-      let listpokemon = document.createElement("li");  
-      let button = document.createElement("button");  
-      button.innerText = pokemon.name;
-      button.classList.add("button-class"); // This styles the button based on the css file. 
-      listpokemon.appendChild(button); 
-      pokemonList.appendChild(listpokemon);  
-      button.addEventListener("click", function(event) {
-        showDetails(pokemon);
-      });
-    }
-    
     function loadList() {
       return fetch(apiUrl).then(function (response) {
         return response.json();
@@ -38,11 +12,11 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
           detailsUrl: item.url
         };
         add(pokemon);
-        console.log(pokemon);
+        //console.log(pokemon);  - removing with update 12/9
       });
     }).catch(function (e) {
       console.error(e);
-    })
+    });
   }
 
   function loadDetails(item) {
@@ -59,15 +33,44 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     });
   }
 
+  function add(pokemon) { // Objects: {} - Moved lines 5-17 to lines 62-73   ---------- Update this section???
+    if (
+      typeof pokemon === "object" && // Strings: ""
+      "name" in pokemon 
+      ) {
+        pokemonList.push(pokemon);
+    } else {
+      console.log("pokemon is not correct");
+    }
+  }
+  
+  function getAll() {
+    return pokemonList;   
+   }
+
+ function addListItem(pokemon) {
+   let pokemonList = document.querySelector(".pokemon-list"); 
+   let listpokemon = document.createElement("li");  
+   let button = document.createElement("button");  
+   button.innerText = pokemon.name;
+   button.classList.add("button-class"); // This styles the button based on the css file. 
+   listpokemon.appendChild(button); 
+   pokemonList.appendChild(listpokemon);  
+   button.addEventListener("click", function(event) {
+     showDetails(pokemon);
+       });
+    }
+
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      console.log(pokemon);
+      showModal(pokemon);
     });
   }
+  
+(function(){
 
-  let modalContainer = document.querySelector('#modal-container');
-
-  function showModal(title, text, img) {
+  function showModal(title, text) {
+    let modalContainer = document.querySelector('#modal-container');
 
     modalContainer.innerHTML = '';
 
@@ -80,10 +83,11 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     closeButtonElement.addEventListener('click', hideModal);
 
     let titleElement = document.createElement('h1');
+    titleElement.classList.add('modal-title'); // ====12/12: Added this line
     titleElement.innerText = title;
 
-    let contentElement = document.createElement('p');
-    contentElement.innerText = text;
+    let contentElement = document.createElement('p'); 
+    contentElement.innerText = text; 
 
     let imageElement = document.createElement("img");
     imageElement.setAttribute("src", img);
@@ -98,9 +102,35 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     modalContainer.appendChild(modal);
 
     modalContainer.classList.add('is-visible');
+ 
+    modalContainer.addEventListener('click', (e) => {
+      // Also triggered when clicking INSIDE the modal
+      // Only want to close if the user clicks directly on the overlay
+      let target = e.target;
+      if (target === modalContainer) {
+        hideModal();
+      }
+    });
+
+ }
+
+  function hideModal() {
+    let modalContainer = document.querySelector('#modal-container');
+    modalContainer.classList.remove('is-visible');
   }
-  
-  return {
+ window.addEventListener('keydown', (e) => {
+    let modalContainer = document.querySelector('#modal-container');
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+      hideModal();  
+    }
+  });
+
+  document.querySelector('#show-modal').addEventListener('click', () =>
+{
+    showModal('Modal title', 'This is the modal content.' );
+ });
+
+    return {
       add: add,
       getAll: getAll,
       addListItem: addListItem, // Calling the addListItem from line 42 under return
@@ -109,7 +139,6 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
       showDetails: showDetails,
     };
 })();
-
 
 pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
