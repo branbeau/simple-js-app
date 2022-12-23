@@ -30,13 +30,6 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     });
   }
     
-    //   pokemonRepository.loadDetails(pokemon).then(function () { // **Added 12/18 but this does not work**
-    //   //The only bit of information the card is missing is populating the front image
-    //   document.querySelector(`.card-image.${pokemon.name}`).src =
-    //   pokemon.imageFront;
-    //     });
-    // }
-
   function loadList() {
     return fetch(apiUrl).then(function (response) {
       return response.json();
@@ -47,7 +40,7 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
           detailsUrl: item.url,
         };
         add(pokemon);
-        //console.log(pokemon);
+        // console.log(pokemon);
       });
     }).catch(function (e) {
       console.error(e);
@@ -68,20 +61,20 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     });
   }
   
-  function displayString(string) { //Added 12/16 but receive error that string.charAt is not a function
-    //Capitilizes the first letter in pokemon name
+  function displayString(string) { 
+    //Supposed to capitilize first letter in pokemon name but it does not work
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  function showDetails(pokemon) {
-    loadDetails(pokemon).then(function () {
-      showModal(pokemon); //Changed from console.log(pokemon)
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function () {
+      showModal(item); //Changed from console.log(pokemon)
       });
   }
   
   let modalContainer = document.querySelector('#modal-container');
   
-  function showModal(title, text, img) { 
+  function showModal(pokemon) { 
     
     modalContainer.innerHTML = '';
   
@@ -108,15 +101,17 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     closeButtonElement.innerText = 'Close';
     closeButtonElement.addEventListener('click', hideModal);
   
-    let titleElement = document.createElement('h1'); // Added 12/18
-    titleElement.classList.add('modal-title'); 
-    titleElement.innerText = displayString('pokemon.name');
+    let modalImageDiv = document.createElement("div"); // Added 12/22
+    modalImageDiv.classList.add("modal-image-block");
+
+    let titleElement = document.createElement('h1');
+    titleElement.innerText = pokemon.name;
   
     let contentElement = document.createElement('p');
-    contentElement.innerText = displayString('pokemon.height'); //Changed on 12/21
+    contentElement.innerText = pokemon.height; //Changed on 12/21
   
     let imageElement = document.createElement("img");
-    imageElement.setAttribute("src", img);
+    imageElement.setAttribute("src", pokemon.imageUrl);
     imageElement.setAttribute("width", "294"); 
     imageElement.setAttribute("height", "218");
     imageElement.setAttribute("alt", "Pokemon Image");
@@ -126,7 +121,9 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
     modal.appendChild(contentElement);
     modal.appendChild(imageElement);
     modalContainer.appendChild(modal);
+    
     modalContainer.classList.add('is-visible');
+    
   }
 
     return {
@@ -138,7 +135,6 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
       showDetails: showDetails,
     };
 })();
-
 
 pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
