@@ -65,11 +65,20 @@ let pokemonRepository = (function () { // New pokemonRepository variable that ho
 
     modalBody.empty();
     modalTitle.text(pokemon.name);
-    
+
     let height = $('<p>' + 'Height:  ' + pokemon.height + '</p>');
     let image = $('<img class="pokemon-img" src="' + pokemon.imageUrl + '" />');
     let types = $('<p>' + 'Types:  ' + pokemon.types + '</p>');
     let abilities = $('<p>' + 'Abilities: ' + pokemon.abilities + '</p>');
+
+    $('.modal').show()
+      $('.modal').removeClass('fade')
+
+    $('.close').click(function(){
+      $('.modal').hide()
+      $('.modal').addClass('fade')
+
+    })
 
     modalBody.append(image);
     modalBody.append(height);
