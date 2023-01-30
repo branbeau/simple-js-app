@@ -43,6 +43,7 @@ body {
 .pokemon-img {
     width: 200px;
     height: 200px;
+    justify-content: center;
 }
 
 .list-group-item {
@@ -53,6 +54,7 @@ body {
 .modal-content {
     background: var(--secondary-color);
     color: white; 
+    text-align: center;
 }
 
 .modal-content .close {

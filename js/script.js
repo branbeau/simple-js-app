@@ -1,11 +1,17 @@
 let pokemonRepository = (function () { // New pokemonRepository variable that holds what the IIFE will return and assign IIFE to the variable
     let pokemonList = []; // Arrays:[]
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1300';
+    let loadBar = document.querySelector(".lds-dual-ring");
     let pokemonListElement = $('.pokemon-list');
   // eslint-disable-next-line linebreak-style
   
     function add(pokemon) {
         pokemonList.push(pokemon);
+    }
+
+    function sortbyAscendingName() {
+      pokemonList.sort((a, b) =>a.name.english < b.name.english ? -1 : 1);
+      changeTheDisplay(pokemonList);
     }
     // eslint-disable-next-line linebreak-style
     function getAll() {
